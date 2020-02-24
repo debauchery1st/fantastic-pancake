@@ -9,7 +9,7 @@ export default function App() {
     loaded: false
   });
   useEffect(() => {
-    console.log(BASE_URL);
+    console.log(`base : ${BASE_URL}`);
     !state.loaded &&
       axios.get(`${BASE_URL}/recipes`).then(res => {
         const { data } = res;
