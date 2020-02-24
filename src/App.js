@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import RecipeList from "./components/RecipeList";
-import axios from "axios";
-const BASE_URL = process.env.REACT_APP_BASE_URL;
+import { getRecipes } from "./api-model";
 
 export default function App() {
   const [state, setState] = useState({
@@ -9,13 +8,10 @@ export default function App() {
     loaded: false
   });
   useEffect(() => {
-    console.log(`base : ${BASE_URL}`);
     !state.loaded &&
-      axios.get(`${BASE_URL}/recipes`).then(res => {
-        const { data } = res;
-        console.log(data);
-        setState({ ...state, recipes: res.data, loaded: true });
-      });
+      getRecipes().then(res =>
+        setState({ ...state, recipes: res.data, loaded: true })
+      );
   }, [state]);
   return (
     <div className="App">
